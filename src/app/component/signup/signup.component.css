@@ -1,3 +1,11 @@
-.example-full-width {
+.example-full-width-title {
   width: 100%;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.uploadpic {
+  display: flex;
+  justify-content: space-between;
 }

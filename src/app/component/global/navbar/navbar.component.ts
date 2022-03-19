@@ -92,8 +92,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onSignUp() {
     const dialogCong = new MatDialogConfig();
+    dialogCong.disableClose = true;
     dialogCong.autoFocus = true;
-    dialogCong.width = '60%';
-    this.dialog.open(SignupComponent);
+    dialogCong.width = '45%';
+    this.dialog.open(SignupComponent, dialogCong);
   }
 }

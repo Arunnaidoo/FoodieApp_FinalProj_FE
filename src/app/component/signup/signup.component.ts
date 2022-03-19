@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
 import { ConfirmedValidator } from './confirmed.validator';
@@ -13,17 +12,22 @@ import { ConfirmedValidator } from './confirmed.validator';
 })
 export class SignupComponent implements OnInit {
   registrationForm: FormGroup;
-  user = new User();
+  user!: User;
   msg = '';
   selectedFile: any;
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private dialogRef: MatDialogRef<SignupComponent>
+  ) {
     this.registrationForm = fb.group(
       {
         customerName: ['', Validators.required],
         emailId: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]],
-        phoneNo: [''],
+        phoneNo: ['', [Validators.required]],
+        customerImage: ['', [Validators.required]],
       },
       {
         validator: ConfirmedValidator('password', 'confirmPassword'),
@@ -36,34 +40,41 @@ export class SignupComponent implements OnInit {
   onSignUp() {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
+    this.user = new User(
+      this.registrationForm.get('customerName')?.value,
+      this.registrationForm.get('emailId')?.value,
+      this.registrationForm.get('phoneNo')?.value,
+      this.registrationForm.get('password')?.value
+    );
     const userDetails = {
-      customerName: this.registrationForm.get('customerName')?.value,
-      emailId: this.registrationForm.get('emailId')?.value,
-      password: this.registrationForm.get('password')?.value,
-      phoneNo: this.registrationForm.get('phoneNo')?.value,
+      customerName: this.user.customerName,
+      emailId: this.user.emailId,
+      password: this.user.password,
+      phoneNo: this.user.phoneNo,
     };
 
     const stringUser = JSON.stringify(userDetails);
     formData.append('customerFile', stringUser);
-    this.httpClient
-      .post('http://localhost:8081/api/user/register', formData)
-      .subscribe(
-        (res) => {
-          console.log(res);
-          this.registered();
-        },
-        (err) => console.log('Error Occured duringng saving: ' + err)
-      );
+    this.userService.registerUser(formData).subscribe(
+      (data) => {
+        console.log('Data stored successfully ' + data);
+        this.registered();
+      },
+      (error) => {
+        console.log('Error please check' + error);
+      }
+    );
   }
   registered() {
     const formData = new FormData();
     formData.append('emailId', this.registrationForm.get('emailId')?.value);
     formData.append('roles', 'ROLE_USER');
-    this.httpClient
-      .post('http://localhost:8081/api/user/role/add-to-customer', formData)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    this.userService.addRoleToUser(formData).subscribe((data) => {
+      console.log(data);
+    });
+  }
+  onClose() {
+    this.dialogRef.close();
   }
   ngOnInit(): void {}
 }

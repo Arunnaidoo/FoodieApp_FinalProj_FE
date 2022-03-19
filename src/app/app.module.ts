@@ -13,7 +13,6 @@ import { LoaderComponent } from './component/global/loader/loader.component';
 import { FooterComponent } from './component/global/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupComponent } from './component/signup/signup.component';
 @NgModule({
@@ -26,7 +25,6 @@ import { SignupComponent } from './component/signup/signup.component';
     LoaderComponent,
     FooterComponent,
     NewComponent,
-    RegisterComponent,
     SignupComponent,
   ],
   imports: [
