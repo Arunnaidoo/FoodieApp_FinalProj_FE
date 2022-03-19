@@ -1,0 +1,60 @@
+<div class="mycontainer">
+    <h1>Sign Up</h1>
+    <div class="myforms">
+        <form (submit)="onSignUp()" [formGroup]="registrationForm">
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>User Name</mat-label>
+                <input matInput required formControlName="customerName" [(ngModel)]="user.customerName">
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['customerName'].errors?.['required']">This field is mandatory
+                    </div>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Email Address</mat-label>
+                <input matInput required formControlName="emailId" [(ngModel)]="user.emailId">
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['emailId'].errors?.['required']">This field is mandatory</div>
+                </mat-error>
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['emailId'].errors?.['emailId']">Improper Email Format Please
+                        Check
+                    </div>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Phone No</mat-label>
+                <input matInput required formControlName="phoneNo" [(ngModel)]="user.phoneNo">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput required formControlName="password" [(ngModel)]="user.password">
+                <mat-error>This field is mandatory</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput required formControlName="confirmPassword">
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['confirmPassword'].errors?.['required']">This field is
+                        mandatory</div>
+                </mat-error>
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['confirmPassword'].errors?.['confirmedValidator']">Password
+                        and
+                        Confirm Password Must Match
+                    </div>
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <input type="file" (change)="onFileChanged($event)">
+            <div class="actions">
+                <button mat-stroked-button color="primary" type="submit"
+                    [disabled]="!registrationForm.valid">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

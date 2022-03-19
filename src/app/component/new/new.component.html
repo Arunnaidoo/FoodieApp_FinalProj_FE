@@ -1,0 +1,51 @@
+
+
+
+
+
+<!-- Work In Process ...dont mind -->
+
+
+<h1>Register Your Restaurants</h1>
+<div class="myforms">
+    <form (submit)="register()" [formGroup]="registrationForm">
+        <mat-form-field>
+            <mat-label>customerEmail</mat-label>
+            <input matInput formControlName="customerEmail" [(ngModel)]="restaurant.customerEmail">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>restaurantName</mat-label>
+            <input matInput formControlName="restaurantName" [(ngModel)]="restaurant.restaurantName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>restaurantOwnerName</mat-label>
+            <input matInput formControlName="restaurantOwnerName" [(ngModel)]="restaurant.restaurantOwnerName">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>restaurantOwnerPhoneNumber</mat-label>
+            <input matInput formControlName="restaurantOwnerPhoneNumber"
+                [(ngModel)]="restaurant.restaurantOwnerPhoneNumber">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>typeOfRestaurant</mat-label>
+            <input matInput formControlName="typeOfRestaurant" [(ngModel)]="restaurant.typeOfRestaurant">
+        </mat-form-field>
+        <div formGroupName="restaurantAddress">
+            <mat-label>RestaurantAddress</mat-label>
+            <mat-form-field>
+                <mat-label>city</mat-label>
+                <input matInput formControlName="city" [(ngModel)]="restaurant.city">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>state</mat-label>
+                <input matInput formControlName="state" [(ngModel)]="restaurant.state">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>pinCode</mat-label>
+                <input matInput formControlName="pinCode" [(ngModel)]="restaurant.pinCode">
+            </mat-form-field>
+        </div>
+        <input type="file" (change)="onFileChanged($event)">
+        <button type="submit">Register</button>
+    </form>
+</div>
