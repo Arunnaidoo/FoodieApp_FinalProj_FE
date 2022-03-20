@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/services/user.service';
+import { LoginComponent } from '../login/login.component';
 import { ConfirmedValidator } from './confirmed.validator';
 
 @Component({
@@ -18,7 +23,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private dialogRef: MatDialogRef<SignupComponent>
+    private dialogRef: MatDialogRef<SignupComponent>,
+    private dialog: MatDialog
   ) {
     this.registrationForm = fb.group(
       {
@@ -66,6 +72,7 @@ export class SignupComponent implements OnInit {
         console.log('Data stored successfully ' + data);
         this.registered();
         this.onClose();
+        this.onLogIn();
       },
       (error) => {
         console.log('Error please check' + error);
@@ -82,6 +89,13 @@ export class SignupComponent implements OnInit {
   }
   onClose() {
     this.dialogRef.close();
+  }
+  onLogIn() {
+    const dialogCong = new MatDialogConfig();
+    dialogCong.disableClose = true;
+    dialogCong.autoFocus = true;
+    dialogCong.width = '35%';
+    this.dialog.open(LoginComponent, dialogCong);
   }
   ngOnInit(): void {}
 }
