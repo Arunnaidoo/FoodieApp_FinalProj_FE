@@ -12,7 +12,7 @@ import { ConfirmedValidator } from './confirmed.validator';
 })
 export class SignupComponent implements OnInit {
   registrationForm: FormGroup;
-  user!: User;
+  user: User = new User();
   msg = '';
   selectedFile: any;
   constructor(
@@ -26,7 +26,13 @@ export class SignupComponent implements OnInit {
         emailId: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]],
-        phoneNo: ['', [Validators.required]],
+        phoneNo: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+          ],
+        ],
         customerImage: ['', [Validators.required]],
       },
       {
@@ -40,12 +46,12 @@ export class SignupComponent implements OnInit {
   onSignUp() {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
-    this.user = new User(
-      this.registrationForm.get('customerName')?.value,
-      this.registrationForm.get('emailId')?.value,
-      this.registrationForm.get('phoneNo')?.value,
-      this.registrationForm.get('password')?.value
-    );
+
+    this.user.customerName = this.registrationForm.get('customerName')?.value;
+    this.user.emailId = this.registrationForm.get('emailId')?.value;
+    this.user.phoneNo = this.registrationForm.get('phoneNo')?.value;
+    this.user.password = this.registrationForm.get('password')?.value;
+
     const userDetails = {
       customerName: this.user.customerName,
       emailId: this.user.emailId,

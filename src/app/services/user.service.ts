@@ -18,7 +18,7 @@ export class UserService {
   public addRoleToUser(user: FormData): Observable<User> {
     return this.http.post<User>(this.usersUrl + '/role/add-to-customer', user);
   }
-  public saveCustomer(email: string): Observable<User> {
-    return this.http.post<User>('http://localhost:9000/api/cart/save', email);
+  public loginUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersUrl + '/login', user);
   }
 }

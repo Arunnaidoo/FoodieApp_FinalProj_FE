@@ -1,3 +1,4 @@
+import { LoginComponent } from './../../login/login.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -94,7 +95,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const dialogCong = new MatDialogConfig();
     dialogCong.disableClose = true;
     dialogCong.autoFocus = true;
-    dialogCong.width = '45%';
+    dialogCong.width = '35%';
     this.dialog.open(SignupComponent, dialogCong);
+  }
+  onLogIn() {
+    const dialogCong = new MatDialogConfig();
+    dialogCong.disableClose = true;
+    dialogCong.autoFocus = true;
+    dialogCong.width = '35%';
+    this.dialog.open(LoginComponent, dialogCong);
   }
 }

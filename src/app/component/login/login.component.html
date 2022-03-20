@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="mycontainer">
+    <div class="header">
+        <h1>Log In</h1>
+        <button mat-icon-button (click)="onClose()" routerLink="">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="myforms">
+        <form (submit)="onLogIn()" [formGroup]="loginForm">
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Email Address</mat-label>
+                <input matInput required formControlName="emailId">
+            </mat-form-field>
+            <mat-form-field class="example-full-width-title" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput required formControlName="password">
+            </mat-form-field>
+            <br>
+            <br>
+            <div class="actions">
+                <button mat-stroked-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

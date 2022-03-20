@@ -31,6 +31,13 @@
             <mat-form-field class="example-full-width-title" appearance="fill">
                 <mat-label>Phone No</mat-label>
                 <input matInput required formControlName="phoneNo">
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['phoneNo'].errors?.['required']">This field is
+                        mandatory</div>
+                </mat-error>
+                <mat-error>
+                    <div *ngIf="registrationForm.controls['phoneNo'].errors?.['pattern']">Improper Phone No</div>
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="example-full-width-title" appearance="fill">
                 <mat-label>Password</mat-label>
