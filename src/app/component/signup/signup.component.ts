@@ -65,6 +65,7 @@ export class SignupComponent implements OnInit {
       (data) => {
         console.log('Data stored successfully ' + data);
         this.registered();
+        this.onClose();
       },
       (error) => {
         console.log('Error please check' + error);
